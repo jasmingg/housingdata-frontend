@@ -1,0 +1,145 @@
+/* Force light theme + sane defaults */
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: #f8fafc;           /* light gray */
+  color: #0f172a;                 /* slate-900 */
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* Layout */
+.app { max-width: 960px; margin: 32px auto; padding: 0 16px; }
+.muted { color: #64748b; }        /* slate-500 */
+.section { margin-top: 20px; display: grid; gap: 16px; }
+
+/* Form */
+.grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: end;
+  margin: 16px 0 8px;
+}
+.label { font-size: 12px; color: #475569; margin-bottom: 6px; } /* slate-600 */
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  background: #ffffff;            /* white input */
+  color: #0f172a;
+  border: 1px solid #e2e8f0;      /* slate-200 */
+  border-radius: 10px;
+  outline: none;
+}
+.input:focus {
+  border-color: #3b82f6;          /* blue-500 */
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #0f172a;            /* dark button */
+  color: #fff;
+  cursor: pointer;
+}
+button[disabled] { opacity: 0.7; cursor: not-allowed; }
+
+/* Cards */
+.cards {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 16px;
+}
+.card {
+  background: #ffffff;            /* white card */
+  color: #0f172a;                 /* dark text */
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.eyebrow { font-size: 12px; color: #64748b; text-transform: uppercase; }
+.value { font-weight: 600; font-size: 20px; margin-top: 2px; }
+.sub { font-size: 12px; color: #64748b; margin-top: 4px; }
+
+/* Messages / Raw JSON */
+.alert {
+  margin-top: 16px;
+  padding: 12px;
+  background: #fef2f2;            /* red-50 */
+  border: 1px solid #fecaca;      /* red-200 */
+  color: #b91c1c;                  /* red-700 */
+  border-radius: 10px;
+}
+.details {
+  background: #f1f5f9;            /* slate-100 */
+  border-radius: 10px;
+  padding: 12px;
+}
+pre { white-space: pre-wrap; word-break: break-word; overflow-x: auto; }
+
+select.input {
+  appearance: none;          /* clean look */
+  background-image: none;    /* removes default gradients if present */
+}
+
+.help { margin-top: 6px; font-size: 12px; color: #64748b; }
+
+/* Tooltip */
+.label-row { 
+  display: flex;
+  align-items: center;
+  gap: 8px;
+   }
+   
+.tooltip { 
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;  
+  margin-bottom: 5px;
+}
+.info-btn {
+  width: 18px; height: 18px; line-height: 18px;
+  border-radius: 999px; border: 1px solid #cbd5e1; /* slate-300 */
+  background: #fff; color: #0f172a; font-size: 12px; font-weight: 600;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: help; padding: 0;
+}
+.tooltip-panel {
+  position: absolute; top: 100%; left: 0; transform: translateY(6px);
+  width: 280px; background: #fff; color: #0f172a;
+  border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  font-size: 12px; z-index: 20;
+  opacity: 0; pointer-events: none; transition: opacity .15s ease;
+}
+.tooltip:hover .tooltip-panel,
+.tooltip:focus-within .tooltip-panel { opacity: 1; pointer-events: auto; }
+.tooltip-panel b { font-weight: 600; }
+.tooltip-panel em { color: #64748b; font-style: normal; }
+
+/* Dropdown arrow */
+.select-wrap { position: relative; }
+.select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 12px;                 /* space from edge */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #94a3b8;  /* slate-400 */
+  pointer-events: none;           /* click passes through */
+}
+
+/* remove native arrows and make room for ours */
+select.input {
+  appearance: none;
+  background: #fff;
+  padding-right: 36px;            /* room for the arrow */
+}
