@@ -1,0 +1,8 @@
+[build]
+  functions = "netlify/functions"
+  publish = "dist"  # change this if your build folder is different
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
