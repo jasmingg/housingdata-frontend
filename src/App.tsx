@@ -143,8 +143,8 @@ export default function App() {
             <Card title="Metro Average Housing Cost" value={fmtCurrency(data.metro_stats.median_housing_cost)} subtitle="per month"/>
           </div>
           <BurdenChart
-            state={stateParam}
-            metro={metroParam.trim()}
+            state={data.state}
+            metro={String(data.metro_stats.metro_code)}
             regionBurdenData={data.region_stats.burden_distribution}
             metroBurdenData={data.metro_stats.burden_distribution}
              />
