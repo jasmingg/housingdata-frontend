@@ -1,69 +1,67 @@
-# React + TypeScript + Vite
+# Housing Data Visualizer — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+As part of a full-stack project, this is the repo for my **React + Vite (TypeScript)** code which visualizes housing-burden data from the **2013 American Housing Survey (AHS)**.  
 
-Currently, two official plugins are available:
+Deployed on **Netlify**, with a **Netlify Function** proxying requests to an Elastic Beanstalk API to avoid mixed-content/CORS issues.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Live site:** [https://housingdata.netlify.app](https://housingdata.netlify.app)  
+**Function (example):** `/.netlify/functions/api?state=Virginia&metro=3`
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Highlights
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- ⚡️ React + Vite + TypeScript
+- ☁️ Netlify Function proxy → forwards to Elastic Beanstalk API
+- 🔐 No mixed-content: browser → HTTPS function → HTTP EB (server-side)
+- 📊 Cards + `BurdenChart` comparing **region vs. metro** burden distribution
+- 🧪 Local development with Netlify CLI
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🧪 Usage
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Enter a U.S. state (e.g., Virginia)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Choose a metro category:
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Central City (1)
+- Suburban (3)
+- Non-metro (5)
+
+Click Fetch
+
+View cards and chart populated with API response data
+(Chart only updates after successful fetch using confirmed response values)
+
+---
+
+> **📦 Project Overview – Housing Data Platform**
+
+This project consists of three repos working together, with the other two being:
+
+- 🧠 [`housingdata-backend`](https://github.com/jasmingg/housingdata-backend)  
+  Java Spring Boot API hosted on AWS Elastic Beanstalk.  
+  It exposes housing affordability statistics derived from the 2013 American Housing Survey (AHS) via `/api?state=...&metro=...`.
+
+- 🐍 [`housingdata-visualizer`](https://github.com/jasmingg/housingdata-visualizer)  
+  Python-based repo that uses **GitHub Actions** to generate **150 static pie chart images** (50 states × 3 metro types).  
+  These charts visualize housing burden distributions and are automatically deployed to **GitHub Pages**, along with an `index.html` for easy browsing.
+
+- 🎨 **(this repo)** — `housingdata-frontend`  
+
+Together, these form a lightweight full-stack visualization platform for U.S. housing burden data.
+
+
+## 🧠 How this repo Works (High level overview)
+
+.
+├── netlify.toml
+├── netlify/
+│   └── functions/
+│       └── api.js          # Netlify Function proxy to EB
+├── src/
+│   ├── App.tsx             # UI flow, cards, fetch button
+│   ├── BurdenChart.tsx     # Chart rendering
+│   └── lib/
+│       └── api.ts          # API builder + fetch wrapper
