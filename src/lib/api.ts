@@ -1,9 +1,8 @@
 import type { HousingDto } from "../types";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
 export function buildHousingUrl(state: string, metro: string) {
-  const url = new URL("/api", BASE_URL);
+  const url = new URL("/.netlify/functions/api", window.location.origin); // 
   url.searchParams.set("state", state);
   let stringMetro = String(metro);
   url.searchParams.set("metro", stringMetro);

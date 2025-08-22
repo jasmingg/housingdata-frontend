@@ -1,25 +1,19 @@
-export async function handler(event, context) {
-  const state = event.queryStringParameters.state;
-  const metro = event.queryStringParameters.metro;
-
-  const url = `http://myhousingdataapi.us-east-1.elasticbeanstalk.com/api?state=${state}&metro=${metro}`;
-
+// netlify/functions/api.js
+export async function handler(event) {
+  const { state, metro } = event.queryStringParameters || {};
+  if (!state || !metro) {
+    return { statusCode: 400, body: JSON.stringify({ error: "Missing state or metro" }) };
+  }
+  const url = `http://myhousingdataapi.us-east-1.elasticbeanstalk.com/api?state=${encodeURIComponent(state)}&metro=${encodeURIComponent(metro)}`;
   try {
     const res = await fetch(url);
-    const data = await res.json();
-
+    const body = await res.text();
     return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data),
+      statusCode: res.status,
+      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+      body
     };
-  } catch (err) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Proxy fetch failed', detail: err.message }),
-    };
+  } catch (e) {
+    return { statusCode: 502, body: JSON.stringify({ error: "Proxy fetch failed", detail: String(e) }) };
   }
 }

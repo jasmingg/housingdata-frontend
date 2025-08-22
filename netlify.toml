@@ -1,8 +1,20 @@
 [build]
   functions = "netlify/functions"
-  publish = "dist"  # change this if your build folder is different
+  publish = "dist"
+
+[[redirects]]
+  from = "/api"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
+  force = true
+
+[dev]
+  framework = "vite"
+  port = 5173       # Netlify Dev (your browser hits this)
+  targetPort = 5174 # Vite dev server
