@@ -143,3 +143,38 @@ select.input {
   background: #fff;
   padding-right: 36px;            /* room for the arrow */
 }
+
+.chart-section {
+  display: flex;
+  flex-direction: row;      /* Force side-by-side */
+  flex-wrap: wrap;          /* Allow wrapping on small screens */
+  gap: 24px;
+  align-items: stretch;
+  justify-content: space-between;
+  margin-top: 24px;
+  width: 100%;
+}
+
+.chart-info-box {
+  flex: 1 1 320px;
+  max-width: 400px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.chart-img {
+  flex: 1 1 400px;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-img img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}

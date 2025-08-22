@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { HousingDto } from "./types";
 import "./App.css";
 import {fetchHousing, buildHousingUrl} from "./lib/api"
+import BurdenChart from './BurdenChart'
 
 export default function App() {
   const [stateParam, setStateParam] = useState<string>("");
@@ -141,6 +142,7 @@ export default function App() {
             <Card title="Region Average Housing Cost" value={fmtCurrency(data.region_stats.median_housing_cost)} subtitle="per month" />
             <Card title="Metro Average Housing Cost" value={fmtCurrency(data.metro_stats.median_housing_cost)} subtitle="per month"/>
           </div>
+          <BurdenChart state={stateParam} metro={metroParam.trim()} />
 
           <details className="details">
             <summary>Click here for the raw JSON</summary>
