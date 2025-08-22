@@ -132,7 +132,7 @@ export default function App() {
         <div className="section">
           <div className="cards">
             <Card title="State" value={data.state} subtitle={`Region: ${data.region}`} />
-            <Card title="Region Rank" value={String('#' + data.region_stats.region_rank)} subtitle="of the 4 major regions*" />
+            <Card title="Region Rank (based on average income)" value={String('#' + data.region_stats.region_rank)} subtitle="of the 4 major regions*" />
             <Card title="Metro" value={data.metro_stats.metro_label} subtitle={`Code: ${data.metro_stats.metro_code}`} />
           </div>
 
@@ -142,7 +142,12 @@ export default function App() {
             <Card title="Region Average Housing Cost" value={fmtCurrency(data.region_stats.median_housing_cost)} subtitle="per month" />
             <Card title="Metro Average Housing Cost" value={fmtCurrency(data.metro_stats.median_housing_cost)} subtitle="per month"/>
           </div>
-          <BurdenChart state={stateParam} metro={metroParam.trim()} />
+          <BurdenChart
+            state={stateParam}
+            metro={metroParam.trim()}
+            regionBurdenData={data.region_stats.burden_distribution}
+            metroBurdenData={data.metro_stats.burden_distribution}
+             />
 
           <details className="details">
             <summary>Click here for the raw JSON</summary>
