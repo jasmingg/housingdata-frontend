@@ -51,17 +51,3 @@ This project consists of three repos working together, with the other two being:
 - 🎨 **(this repo)** — `housingdata-frontend`  
 
 Together, these form a lightweight full-stack visualization platform for U.S. housing burden data.
-
-
-## 🧠 How this repo Works (High level overview)
-
-.
-├── netlify.toml
-├── netlify/
-│   └── functions/
-│       └── api.js          # Netlify Function proxy to EB
-├── src/
-│   ├── App.tsx             # UI flow, cards, fetch button
-│   ├── BurdenChart.tsx     # Chart rendering
-│   └── lib/
-│       └── api.ts          # API builder + fetch wrapper
